@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kitty 工作台</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#ff9ec4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="kitty-wrap" id="kitty" title="点我打招呼～">
+      <svg class="kitty" viewBox="0 0 200 180">
+        <path d="M45 62 L28 12 L80 42 Z" fill="#fff" stroke="#3a3a3a" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M155 62 L172 12 L120 42 Z" fill="#fff" stroke="#3a3a3a" stroke-width="2.5" stroke-linejoin="round"/>
+        <g stroke="#3a3a3a" stroke-width="3" stroke-linecap="round">
+          <line x1="14" y1="92" x2="52" y2="98"/><line x1="14" y1="106" x2="52" y2="108"/><line x1="14" y1="120" x2="52" y2="118"/>
+          <line x1="186" y1="92" x2="148" y2="98"/><line x1="186" y1="106" x2="148" y2="108"/><line x1="186" y1="120" x2="148" y2="118"/>
+        </g>
+        <ellipse cx="100" cy="100" rx="76" ry="64" fill="#fff" stroke="#3a3a3a" stroke-width="2.5"/>
+        <ellipse cx="74" cy="98" rx="9" ry="13" fill="#2b2b2b"/>
+        <ellipse cx="126" cy="98" rx="9" ry="13" fill="#2b2b2b"/>
+        <ellipse cx="100" cy="122" rx="10" ry="7" fill="#ffce44"/>
+        <g transform="translate(150,50) rotate(18)">
+          <ellipse cx="-15" cy="0" rx="16" ry="12" fill="#ff7eb3" stroke="#3a3a3a" stroke-width="2"/>
+          <ellipse cx="15" cy="0" rx="16" ry="12" fill="#ff7eb3" stroke="#3a3a3a" stroke-width="2"/>
+          <circle cx="0" cy="0" r="7" fill="#ff4f96" stroke="#3a3a3a" stroke-width="2"/>
+        </g>
+      </svg>
+      <div class="bubble hidden" id="kittyBubble"></div>
+    </div>
+    <div class="header-text">
+      <h1 id="appTitle" class="app-title" title="点击可改名字">Kitty 工作台</h1>
+      <div class="today-info" id="todayInfo"></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="home">首页</button>
+    <button class="tab" data-tab="schedule">课程表</button>
+    <button class="tab" data-tab="countdown">倒计时</button>
+  </nav>
+
+  <main>
+    <!-- 首页 -->
+    <section id="tab-home" class="tab-panel active">
+      <div class="todo-input">
+        <button id="voiceBtn" class="voice-btn" title="点击语音录入">🎤</button>
+        <input id="todoText" type="text" placeholder="说：后天下午3点交作业">
+        <button id="addBtn" class="add-btn">添加</button>
+      </div>
+      <div id="voiceStatus" class="voice-status hidden"></div>
+      <div class="todo-filter">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="pending">未完成</button>
+        <button class="chip" data-filter="done">已完成</button>
+      </div>
+      <ul id="todoList" class="todo-list"></ul>
+
+      <div class="bottom-row">
+        <!-- 左下：饮水计划 -->
+        <div class="card water-card">
+          <h2>💧 饮水计划</h2>
+          <div class="water-track" id="waterTrack"></div>
+          <div class="water-info"><span id="waterText">0 / 8 杯</span> · <span id="waterMl">0 ml</span></div>
+          <div class="water-actions">
+            <button id="waterMinus" class="mini">−</button>
+            <button id="waterPlus" class="mini pink">+ 一杯</button>
+          </div>
+        </div>
+
+        <!-- 右下：运动计划 -->
+        <div class="card exercise-card">
+          <h2>🏃 运动计划</h2>
+          <div class="ex-total">今日消耗 <b id="exTotal">0</b> 千卡</div>
+          <div class="ex-row">
+            <select id="exType" class="mini-field"></select>
+            <input id="exMin" type="number" inputmode="numeric" min="1" placeholder="分钟" class="mini-field ex-min">
+          </div>
+          <div class="ex-row">
+            <label class="mini-label">体重 <input id="exWeight" type="number" inputmode="numeric" min="20" class="mini-field ex-w"> kg</label>
+            <span id="exKcal" class="ex-kcal">≈ 0 千卡</span>
+          </div>
+          <button id="exAdd" class="mini pink full">+ 记录这次运动</button>
+          <ul id="exList" class="ex-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 课程表 -->
+    <section id="tab-schedule" class="tab-panel">
+      <details class="time-config">
+        <summary>⚙️ 课程时间设置（可自己调每节课时间）</summary>
+        <div id="periodEditor" class="period-editor"></div>
+        <button id="addPeriod" class="mini pink">+ 添加一节</button>
+        <div class="hint">改完时间后，课程表与上课提醒会自动按新时间计算。</div>
+      </details>
+      <div class="hint">点击格子编辑课程；今天所在列高亮。</div>
+      <div class="schedule-wrap" id="scheduleWrap"></div>
+    </section>
+
+    <!-- 倒计时 -->
+    <section id="tab-countdown" class="tab-panel">
+      <div class="card">
+        <h2>📚 学期进度</h2>
+        <div class="semester-config">
+          <label>开学 <input type="date" id="semStart"></label>
+          <label>放假 <input type="date" id="semEnd"></label>
+        </div>
+        <div id="semesterInfo"></div>
+      </div>
+      <div class="card">
+        <h2>🎉 周末倒计时</h2>
+        <div id="weekendInfo" class="big-count"></div>
+      </div>
+      <div class="card">
+        <h2>🏖️ 放假倒计时</h2>
+        <ul id="holidayList" class="count-list"></ul>
+      </div>
+      <div class="card">
+        <h2>🔁 调休提醒</h2>
+        <ul id="makeupList" class="count-list"></ul>
+        <div class="hint">放假与调休以国务院公布为准，可在 app.js 的 HOLIDAYS / MAKEUP 中调整。</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 课程编辑弹窗 -->
+  <div id="courseModal" class="modal hidden">
+    <div class="modal-body">
+      <h3 id="courseModalTitle">编辑课程</h3>
+      <input id="courseName" class="field" placeholder="课程名，如：高等数学">
+      <input id="courseLoc" class="field" placeholder="地点（可选），如：一教201">
+      <div class="modal-actions">
+        <button id="courseClear" class="btn danger">删除</button>
+        <span class="spacer"></span>
+        <button id="courseCancel" class="btn">取消</button>
+        <button id="courseSave" class="btn primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
