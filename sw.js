@@ -1,4 +1,4 @@
-const CACHE = "kitty-v1";
+const CACHE = "kitty-v2";
 const ASSETS = [
   "./", "./index.html", "./style.css", "./app.js",
   "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"

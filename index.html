@@ -14,34 +14,20 @@
 <body>
   <header class="app-header">
     <div class="kitty-wrap" id="kitty" title="点我打招呼～">
-      <svg class="kitty" viewBox="0 0 220 200">
-        <path d="M46 80 Q30 20 64 50 L92 74 Z" fill="#fffaf4" stroke="#5a3a2e" stroke-width="3.5" stroke-linejoin="round"/>
-        <path d="M174 80 Q190 20 156 50 L128 74 Z" fill="#fffaf4" stroke="#5a3a2e" stroke-width="3.5" stroke-linejoin="round"/>
-        <path d="M60 72 Q50 42 70 58 L84 72 Z" fill="#ffb8d4"/>
-        <path d="M160 72 Q170 42 150 58 L136 72 Z" fill="#ffb8d4"/>
-        <ellipse cx="110" cy="112" rx="86" ry="74" fill="#fffaf4" stroke="#5a3a2e" stroke-width="3.5"/>
-        <ellipse cx="78" cy="110" rx="14" ry="18" fill="#3a2a24"/>
-        <ellipse cx="142" cy="110" rx="14" ry="18" fill="#3a2a24"/>
-        <circle cx="73" cy="103" r="5.5" fill="#fff"/>
-        <circle cx="137" cy="103" r="5.5" fill="#fff"/>
-        <circle cx="83" cy="117" r="3" fill="#fff"/>
-        <circle cx="147" cy="117" r="3" fill="#fff"/>
-        <ellipse cx="54" cy="134" rx="13" ry="8" fill="#ffb8d4" opacity="0.75"/>
-        <ellipse cx="166" cy="134" rx="13" ry="8" fill="#ffb8d4" opacity="0.75"/>
-        <path d="M110 124 L103 132 L117 132 Z" fill="#ff8fb8"/>
-        <path d="M110 132 Q102 142 94 134" fill="none" stroke="#5a3a2e" stroke-width="3" stroke-linecap="round"/>
-        <path d="M110 132 Q118 142 126 134" fill="none" stroke="#5a3a2e" stroke-width="3" stroke-linecap="round"/>
-        <g stroke="#5a3a2e" stroke-width="3" stroke-linecap="round" opacity="0.85">
-          <line x1="22" y1="108" x2="58" y2="112"/>
-          <line x1="20" y1="126" x2="58" y2="124"/>
-          <line x1="198" y1="108" x2="162" y2="112"/>
-          <line x1="200" y1="126" x2="162" y2="124"/>
-        </g>
-        <g transform="translate(172,56) rotate(16)">
-          <path d="M0 0 Q-24 -18 -24 0 Q-24 18 0 0 Z" fill="#ff8fb8" stroke="#5a3a2e" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M0 0 Q24 -18 24 0 Q24 18 0 0 Z" fill="#ff8fb8" stroke="#5a3a2e" stroke-width="3" stroke-linejoin="round"/>
-          <circle cx="0" cy="0" r="8" fill="#ff6ba8" stroke="#5a3a2e" stroke-width="3"/>
-        </g>
+      <svg class="kitty" viewBox="0 0 200 170">
+        <defs>
+          <linearGradient id="bowGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffb6d5"/>
+            <stop offset="1" stop-color="#ff7eb3"/>
+          </linearGradient>
+        </defs>
+        <path d="M90 94 L62 150 L86 141 L98 96 Z" fill="#ff8fbb" stroke="#e85a9e" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M110 94 L138 150 L114 141 L102 96 Z" fill="#ff8fbb" stroke="#e85a9e" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M98 80 C72 50 26 48 24 80 C26 112 72 110 98 80 Z" fill="url(#bowGrad)" stroke="#e85a9e" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M102 80 C128 50 174 48 176 80 C174 112 128 110 102 80 Z" fill="url(#bowGrad)" stroke="#e85a9e" stroke-width="3.5" stroke-linejoin="round"/>
+        <ellipse cx="56" cy="70" rx="14" ry="8" fill="#ffdcec" opacity="0.85" transform="rotate(-16 56 70)"/>
+        <ellipse cx="144" cy="70" rx="14" ry="8" fill="#ffdcec" opacity="0.85" transform="rotate(16 144 70)"/>
+        <rect x="84" y="60" width="32" height="42" rx="15" fill="#ff6ba8" stroke="#e85a9e" stroke-width="3.5"/>
       </svg>
       <div class="bubble hidden" id="kittyBubble"></div>
     </div>
